@@ -89,4 +89,4 @@ names_dataframe = pd.DataFrame(names_dict, columns=column_order)
 if "seex" in names_dataframe.columns:
     names_dataframe.drop("seex", axis=1, inplace=True)
 
-st.dataframe(names_dataframe)w
+st.dataframe(names_dataframe)
