@@ -1,12 +1,19 @@
 import streamlit as st
 import pandas as pd
-from google.cloud import firestore
-from google.oauth2 import service_account
-
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
 import json
+
 key_dict = json.loads(st.secrets["textkey"])
-creds = service_account.Credentials.from_service_account_info(key_dict)
-db = firestore.Client(credentials=creds, project="names-project-demo")
+# creds = service_account.Credentials.from_service_account_info(key_dict)
+creds = credentials.Certificate (key_dict)
+if not firebase_admin._apps:
+    firebase_admin.initialize_app(creds)
+
+# db = firestore.Client(credentials=creds, project="names-project-demo")
+# Initialize Firestore
+db = firestore.client()
 dbNames = db.collection(u"names")
 
 st.header("Nuevo registro")
